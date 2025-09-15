@@ -15,3 +15,15 @@ const prenom = "Arthur";
 const lesDeux = prenom + nom;
 document.getElementById("output3").innerText = `Je m'appelle ${lesDeux}`;
 
+/*Exo 4 : Calcul de TVA*/
+let ht = 30;
+const tva = 0.2;
+const ttc = ht * (1 + tva);
+document.getElementById("output4").innerText = `Le prix TTC est ${ttc}€`;
+
+/*Exo 5 : Conditions*/
+if ( ((4 >= 6) || ("herbe" != "verte")) &&  !(((12 * 2) == 144) && true)){
+    document.getElementById("output5").innerText = "C'est vrai !";
+} else {
+    document.getElementById("output5").innText = "C'est faux";
+}
