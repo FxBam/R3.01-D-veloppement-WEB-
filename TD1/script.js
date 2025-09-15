@@ -27,3 +27,23 @@ if ( ((4 >= 6) || ("herbe" != "verte")) &&  !(((12 * 2) == 144) && true)){
 } else {
     document.getElementById("output5").innText = "C'est faux";
 }
+
+/*Exo 6 : Calcul IMC*/
+const poid = 62;
+const taille = 1.64;
+const IMC = poid / (taille * taille);
+document.getElementById("output6").innerText = `Mon IMC est de ${IMC}`;
+
+/*Exo 7 : Livraison gratuite*/
+const montMin = 10;
+const montTot = 30;
+if (montTot > montMin) {
+    document.getElementById("output7").innerText = `Livraison gratuite`;
+} else {
+    document.getElementById("output7").innerText = `Livraison payante`;
+}
+
+/*Exo 8 : Binaire en décimal*/
+const binaire = "1001011";
+const decimal = parseInt(binaire, 2);
+document.getElementByID("output8").innerText = `Le nombre est ${decimal}`;
