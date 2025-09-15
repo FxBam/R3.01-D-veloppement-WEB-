@@ -9,3 +9,9 @@ const largeur = 50;
 const aire = longueur * largeur;
 document.getElementById("output2").innerText = `La surface est ${aire} m²`;
 
+/*Exo 3 : Concaténation de chaînes*/
+const nom = "Jabet";
+const prenom = "Arthur";
+const lesDeux = prenom + nom;
+document.getElementById("output3").innerText = `Je m'appelle ${lesDeux}`;
+
