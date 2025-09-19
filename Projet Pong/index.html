@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Pong</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <div class="center-container">
+            <div class="title">
+                <h1>Pong</h1>
+            </div>
+            <canvas id="pongCanvas" width="400" height="500" aria-label="Canvas de jeu"></canvas>
+            <div id="ui">
+                <p>Score : <span id="scoreSeconde"></span></p>
+            </div>
+        </div>
+
+        <script>
+            var canvas = document.getElementById("pongCanvas");
+            var ctx = canvas.getContext("2d");
+            var ballRadius = 10;
+            var x = canvas.width/2;
+            var y = canvas.height-30;
+            var dx = 2;
+            var dy = -2;
+
+            let score = 0;
+            const scoreElement = document.getElementById("scoreSeconde");
+            scoreElement.textContent = score;
+
+            function incrementScore() {
+                score++;
+                scoreElement.textContent = score;
+            }
+
+            function resetScore() {
+                score = 0;
+                scoreElement.textContent = score;
+            }
+
+            function incrementVitesse() {
+                if (score % 10 === 0) {
+                    dx *= 1.5;
+                    dy *= 1.5;
+                }
+            }
+
+            function resetVitesse() {
+                dx = 2;
+                dy = -2;
+            }
+
+            function drawBall() {
+                ctx.beginPath();
+                ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+                ctx.fillStyle = "#0095DD";
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawBall();
+                
+                if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+                    dx = -dx;
+                }
+                if(y + dy > canvas.height-ballRadius || y + dy < ballRadius) {
+                    dy = -dy;
+                }
+                
+                x += dx;
+                y += dy;
+            }
+
+        </script>
+    </body>
+</html>
