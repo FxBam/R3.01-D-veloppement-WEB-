@@ -15,19 +15,28 @@
             <div id="ui">
                 <p>Score : <span id="scoreSeconde"></span></p>
             </div>
+            <div id="controls">
+                <button onclick="jouerJeux()">Jouer</button>
+                <button onclick="allerDroite()">Droite</button>
+                <button onclick="allerGauche()">Gauche</button>
+            </div>
         </div>
 
         <script>
             var canvas = document.getElementById("pongCanvas");
             var ctx = canvas.getContext("2d");
             var ballRadius = 10;
-            var x = canvas.width/2;
-            var y = canvas.height-30;
+            var paddleHeight = 10;
+            var paddleWidth = 75;
+            var x_ball = canvas.width/2;
+            var y_ball = canvas.height-30;
+            var x_paddle = canvas.width/2;
+            var y_paddle = canvas.height-paddleHeight;
             var dx = 2;
             var dy = -2;
-
-            let score = 0;
-            const scoreElement = document.getElementById("scoreSeconde");
+            
+            var score = 0;
+            var scoreElement = document.getElementById("scoreSeconde");
             scoreElement.textContent = score;
 
             function incrementScore() {
@@ -41,10 +50,8 @@
             }
 
             function incrementVitesse() {
-                if (score % 10 === 0) {
-                    dx *= 1.5;
-                    dy *= 1.5;
-                }
+                dx *= 1.2;
+                dy *= 1.2;
             }
 
             function resetVitesse() {
@@ -54,7 +61,15 @@
 
             function drawBall() {
                 ctx.beginPath();
-                ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+                ctx.arc(x_ball, y_ball, ballRadius, 0, Math.PI*2);
+                ctx.fillStyle = "#0095DD";
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            function drawPaddle() {
+                ctx.beginPath();
+                ctx.rect(x_paddle - paddleWidth / 2, y_paddle, paddleWidth, paddleHeight);
                 ctx.fillStyle = "#0095DD";
                 ctx.fill();
                 ctx.closePath();
@@ -63,17 +78,73 @@
             function draw() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 drawBall();
-                
-                if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+                drawPaddle();
+                if(x_ball + dx > canvas.width-ballRadius || x_ball + dx < ballRadius) {
                     dx = -dx;
                 }
-                if(y + dy > canvas.height-ballRadius || y + dy < ballRadius) {
+                if(y_ball + dy > canvas.height-ballRadius || y_ball + dy < ballRadius) {
                     dy = -dy;
                 }
-                
-                x += dx;
-                y += dy;
+
+                if(y_ball + dy > y_paddle - ballRadius && x_ball > x_paddle - paddleWidth / 2 && x_ball < x_paddle + paddleWidth / 2) {
+                    dy = -dy;
+                } else if (y_ball + dy > canvas.height-ballRadius) {
+                    alert("GAME OVER");
+                    resetJeux();
+                }
+
+                x_ball += dx;
+                y_ball += dy;
             }
+
+            document.addEventListener("keydown", function(event) {
+                if (event.key === "ArrowRight") {
+                    if (x_paddle + paddleWidth / 2 + 20 <= canvas.width) {
+                        x_paddle += 20;
+                    }
+                }
+                if (event.key === "ArrowLeft") {
+                    if (x_paddle - paddleWidth / 2 - 20 >= 0) {
+                        x_paddle -= 20;
+                    }
+                }
+            });
+
+            function gameLoop() {
+                draw();
+                requestAnimationFrame(gameLoop);
+            }
+
+            var intervalId = null;
+            var elapsedTime = 0;
+
+            function jouerJeux() {
+                resetJeux(); 
+                if (intervalId) clearInterval(intervalId); 
+                intervalId = setInterval(function() {
+                    incrementScore();
+                    elapsedTime++;
+                    if (score % 10 === 0 && score !== 0) {
+                        incrementVitesse();
+                    }
+                }, 1000);
+                gameLoop();
+            }
+
+            function resetJeux() {
+                if (intervalId) {
+                    clearInterval(intervalId);
+                    intervalId = null;
+                }
+                resetScore();
+                resetVitesse();
+                x_ball = canvas.width/2;
+                y_ball = canvas.height-30;
+                elapsedTime = 0;
+            }
+
+            drawBall();
+            drawPaddle();
 
         </script>
     </body>
