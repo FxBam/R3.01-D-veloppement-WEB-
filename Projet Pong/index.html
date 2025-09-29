@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Pong</title>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
@@ -77,6 +77,7 @@
 
             function draw() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
+                movePaddle();
                 drawBall();
                 drawPaddle();
                 if(x_ball + dx > canvas.width-ballRadius || x_ball + dx < ballRadius) {
@@ -88,38 +89,49 @@
 
                 if(y_ball + dy > y_paddle - ballRadius && x_ball > x_paddle - paddleWidth / 2 && x_ball < x_paddle + paddleWidth / 2) {
                     dy = -dy;
-                } else if (y_ball + dy > canvas.height-ballRadius) {
-                    alert("GAME OVER");
-                    resetJeux();
                 }
 
                 x_ball += dx;
                 y_ball += dy;
             }
 
+            var keys = {};
+
             document.addEventListener("keydown", function(event) {
-                if (event.key === "ArrowRight") {
-                    if (x_paddle + paddleWidth / 2 + 20 <= canvas.width) {
-                        x_paddle += 20;
-                    }
-                }
-                if (event.key === "ArrowLeft") {
-                    if (x_paddle - paddleWidth / 2 - 20 >= 0) {
-                        x_paddle -= 20;
-                    }
+                if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+                    keys[event.key] = true;
                 }
             });
+
+            document.addEventListener("keyup", function(event) {
+                if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+                    keys[event.key] = false;
+                }
+            });
+
+            function movePaddle() {
+                const step = 7;
+                if (keys["ArrowRight"] && x_paddle + paddleWidth / 2 + step <= canvas.width) {
+                    x_paddle += step;
+                }
+                if (keys["ArrowLeft"] && x_paddle - paddleWidth / 2 - step >= 0) {
+                    x_paddle -= step;
+                }
+            }
 
             function gameLoop() {
                 draw();
                 requestAnimationFrame(gameLoop);
+                if (y_ball + dy > canvas.height - ballRadius) {       
+                    gameOver();
+                    return;
+                }
             }
 
             var intervalId = null;
             var elapsedTime = 0;
 
             function jouerJeux() {
-                resetJeux(); 
                 if (intervalId) clearInterval(intervalId); 
                 intervalId = setInterval(function() {
                     incrementScore();
@@ -129,6 +141,11 @@
                     }
                 }, 1000);
                 gameLoop();
+            }
+
+            function gameOver() {
+                alert("Game Over ! Votre score est : " + score);
+                resetJeux(); 
             }
 
             function resetJeux() {
@@ -143,8 +160,7 @@
                 elapsedTime = 0;
             }
 
-            drawBall();
-            drawPaddle();
+            draw();
 
         </script>
     </body>
