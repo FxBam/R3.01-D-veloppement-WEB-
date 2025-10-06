@@ -24,6 +24,7 @@ IDE	Visual Studio Code
 Versionnage	Git & GitHub (repository public)
 Hébergement	GitHub Pages
 Icônes	Font Awesome
+
 🕹️ Fonctionnalités (Version 1 - V1)
 
 Un bouton permet de lancer ou réinitialiser la partie.
@@ -42,7 +43,7 @@ Si la balle est ratée, la partie se termine et un message de fin s’affiche.
 
 Le score est affiché en bas de l’écran.
 
-🚀 Fonctionnalités avancées (Version 2 - V2)
+🕹️ Fonctionnalités avancées (Version 2 - V2)
 
 La vitesse de la balle augmente progressivement à chaque rebond (jusqu’à 5× la vitesse initiale).
 
@@ -50,7 +51,7 @@ La balle ne peut jamais se déplacer strictement verticalement.
 
 Le meilleur score (plus longue durée) est enregistré dans le localStorage du navigateur.
 
-🌈 Fonctionnalités bonus (optionnelles)
+🚀 Fonctionnalités bonus (optionnelles)
 
 Le joueur peut choisir les couleurs du fond et des éléments du jeu, enregistrées dans le localStorage.
 
@@ -82,20 +83,6 @@ Extension Wave Evaluation Tool
 ├── assets/           # (optionnel) ressources supplémentaires (sons, icônes, etc.)
 └── README.md         # Documentation du projet
 
-⚙️ Installation et exécution
-
-Cloner le dépôt GitHub :
-
-git clone https://github.com/<ton-utilisateur>/simple-pong.git
-
-
-Ouvrir le dossier dans Visual Studio Code.
-
-Lancer le jeu en ouvrant le fichier index.html dans votre navigateur.
-
-Ou jouer directement via GitHub Pages :
-👉 Lien du jeu en ligne
-
 🧠 Points d’apprentissage
 
 Manipulation de l’API Canvas (dessin, mouvement, collisions).
@@ -110,5 +97,5 @@ Mise en place d’un projet versionné sur Git et GitHub.
 
 👨‍💻 Auteur
 
-Arthur — Étudiant en BUT Informatique, Université de Caen
+Arthur — Étudiant en BUT 2 Informatique, Université de Caen
 Encadrant : Christophe Vallot
