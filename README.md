@@ -71,18 +71,6 @@ Le projet vise une accessibilité conforme à la norme WCAG AA 2.0.
 
 Validateur HTML/CSS du W3C
 
-Achecker – Accessibilité
-
-Extension Wave Evaluation Tool
-
-💾 Structure du projet
-📦 simple-pong/
-├── index.html        # Structure principale du jeu
-├── style.css         # Feuille de style (mise en page + responsive)
-├── script.js         # Logique du jeu Pong
-├── assets/           # (optionnel) ressources supplémentaires (sons, icônes, etc.)
-└── README.md         # Documentation du projet
-
 🧠 Points d’apprentissage
 
 Manipulation de l’API Canvas (dessin, mouvement, collisions).
